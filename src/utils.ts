@@ -26,17 +26,25 @@ export function ping() {
 
 function offlineHandler() {
   log('Offline.');
-  if (offline) return;
+  if (offline === true) return;
   offline = true;
-  sendEmail();
+  sendEmail(
+    '⚠️ Heads-Up: The garage fridge has lost power.',
+    'The Raspberry Pi appears to be offline. Please check the garage fridge.'
+  );
 }
 
 function onlineHandler() {
-  offline = false;
   log('Online.');
+  if (offline === false) return;
+  offline = false;
+  sendEmail(
+    '✅ Power restored: The garage fridge has power.',
+    'The Raspberry Pi is back online. The garage fridge is working fine.'
+  );
 }
 
-function sendEmail() {
+function sendEmail(subject: string, text: string) {
   const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
@@ -48,8 +56,8 @@ function sendEmail() {
   const mailOptions = {
     from: 'laytontm@gmail.com',
     to: 'laytontm@gmail.com',
-    subject: '⚠️ Heads-Up: The garage fridge has lost power.',
-    text: 'The Raspberry Pi appears to be offline. Please check the garage fridge.',
+    subject,
+    text,
   };
 
   transporter.sendMail(mailOptions, function (error, info) {
