@@ -8,6 +8,7 @@
   "dependencies": {
     "@vonage/server-sdk": "^2.10.10",
     "express": "^4.17.1",
+    "forever": "^4.0.3",
     "tcp-ping": "^0.1.1"
   },
   "devDependencies": {
