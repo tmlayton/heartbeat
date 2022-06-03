@@ -19,7 +19,7 @@
   "scripts": {
     "build": "yarn run tsc",
     "preforever": "yarn run build",
-    "forever": "forever start -l $PWD/log -a dist/src/app.js",
+    "forever": "forever start dist/src/app.js",
     "preserver": "yarn run build",
     "server": "node dist/src/app.js"
   }
