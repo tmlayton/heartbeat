@@ -1,6 +1,14 @@
 import tcpp from 'tcp-ping';
 import nodemailer from 'nodemailer';
-import { applicationSpecificPassword, ip, email } from '../data.json';
+import {
+  applicationSpecificPassword,
+  ip,
+  email,
+  offlineSubject,
+  offlineBody,
+  onlineSubject,
+  onlineBody,
+} from '../data.json';
 
 let offline = false;
 
@@ -28,20 +36,14 @@ function offlineHandler() {
   log('Offline.');
   if (offline === true) return;
   offline = true;
-  sendEmail(
-    '⚠️ Heads-Up: The garage fridge has lost power.',
-    'The Raspberry Pi appears to be offline. Please check the garage fridge.'
-  );
+  sendEmail(offlineSubject, offlineBody);
 }
 
 function onlineHandler() {
   log('Online.');
   if (offline === false) return;
   offline = false;
-  sendEmail(
-    '✅ Power restored: The garage fridge has power.',
-    'The Raspberry Pi is back online. The garage fridge is working fine.'
-  );
+  sendEmail(onlineSubject, onlineBody);
 }
 
 function sendEmail(subject: string, text: string) {
