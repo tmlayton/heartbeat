@@ -9,7 +9,7 @@ scheduleJobs();
 function scheduleJobs() {
   setInterval(() => {
     ping();
-  }, pingIntervalMs);
+  }, Number(pingIntervalMs));
 }
 
 app.listen(port, () => {
