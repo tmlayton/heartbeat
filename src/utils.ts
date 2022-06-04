@@ -2,19 +2,19 @@ import tcpp from 'tcp-ping';
 import nodemailer from 'nodemailer';
 import {
   applicationSpecificPassword,
-  ip,
-  email,
+  pingAddress,
+  gmailAddress,
   offlineSubject,
   offlineBody,
   onlineSubject,
   onlineBody,
-} from '../data.json';
+} from '../config.json';
 
 let offline = false;
 
 export function ping() {
   log('Pinging...');
-  tcpp.ping({ address: ip, attempts: 1 }, function (_, data) {
+  tcpp.ping({ address: pingAddress, attempts: 1 }, function (_, data) {
     const error = data.results[0].err;
     if (error != null) {
       if (
@@ -50,14 +50,14 @@ function sendEmail(subject: string, text: string) {
   const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-      user: email,
+      user: gmailAddress,
       pass: applicationSpecificPassword,
     },
   });
 
   const mailOptions = {
-    from: email,
-    to: email,
+    from: gmailAddress,
+    to: gmailAddress,
     subject,
     text,
   };
