@@ -1,12 +1,12 @@
 import tcpp from 'tcp-ping';
 import nodemailer from 'nodemailer';
-import { appPass } from '../data.json';
+import { applicationSpecificPassword, ip, email } from '../data.json';
 
 let offline = false;
 
 export function ping() {
   log('Pinging...');
-  tcpp.ping({ address: '192.168.1.86', attempts: 1 }, function (_, data) {
+  tcpp.ping({ address: ip, attempts: 1 }, function (_, data) {
     const error = data.results[0].err;
     if (error != null) {
       if (
@@ -48,14 +48,14 @@ function sendEmail(subject: string, text: string) {
   const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-      user: 'laytontm@gmail.com',
-      pass: appPass,
+      user: email,
+      pass: applicationSpecificPassword,
     },
   });
 
   const mailOptions = {
-    from: 'laytontm@gmail.com',
-    to: 'laytontm@gmail.com',
+    from: email,
+    to: email,
     subject,
     text,
   };
