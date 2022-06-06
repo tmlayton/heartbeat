@@ -8,13 +8,14 @@ import {
   offlineBody,
   onlineSubject,
   onlineBody,
+  pingTimeoutMs,
 } from '../config.json';
 
 let offline = false;
 
 export function ping() {
   log('Pinging...');
-  tcpp.ping({ address: pingAddress, attempts: 1 }, function (_, data) {
+  tcpp.ping({ address: pingAddress, attempts: 1, timeout: pingTimeoutMs }, function (_, data) {
     const error = data.results[0].err;
     if (error != null) {
       if (
