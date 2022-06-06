@@ -65,14 +65,15 @@ function sendEmail(subject: string, text: string) {
 
   transporter.sendMail(mailOptions, function (error, info) {
     if (error) {
-      console.log(error);
+      log(error);
     } else {
-      console.log('Email sent: ' + info.response);
+      log('Email sent: ' + info.response);
     }
   });
 }
 
 export function log(message: any) {
+  if (process.env.LOG === 'false') return;
   const localTime = new Date().toLocaleString();
   console.log(`[${localTime}] ${message}`);
 }

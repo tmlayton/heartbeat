@@ -23,7 +23,7 @@
   "scripts": {
     "build": "yarn run tsc",
     "preforever": "yarn run build",
-    "forever": "forever start dist/src/app.js",
+    "forever": "LOG=false forever start dist/src/app.js",
     "stopall": "forever stopall",
     "preserver": "yarn run build",
     "server": "node dist/src/app.js",
